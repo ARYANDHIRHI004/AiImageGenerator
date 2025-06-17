@@ -1,6 +1,7 @@
 import mongoose from "mongoose";
 import jwt from "jsonwebtoken"
 import { ACCESS_TOKEN_EXPIRY, ACCESS_TOKEN_SECRET, REFRESH_TOKEN_EXPIRY, REFRESH_TOKEN_SECRET } from "../constents.js";
+import bcrypt from "bcryptjs";
 
 
 const userSchema = new mongoose.Schema({
@@ -40,7 +41,6 @@ const userSchema = new mongoose.Schema({
             url:``,
             localpath:""
         },
-        required:[true, "Avatar is required"]
     },
     refreshToken:{
         type:String
@@ -65,12 +65,12 @@ userSchema.pre("save", async function(next){
     }
 })
 
-userSchema.models.comparePassword = async function(password){
+userSchema.methods.comparePassword = async function(password){
     const isPasswordMatched = await bcrypt.compare(password, this.password)
     return isPasswordMatched
 }
 
-userSchema.models.generateAccessToken = function(){
+userSchema.methods.generateAccessToken = function(){
     return jwt.sign({
         _id:this._id,
         email:this.email
@@ -81,7 +81,7 @@ userSchema.models.generateAccessToken = function(){
     })
 }
 
-userSchema.models.generateRefreshToken = function(){
+userSchema.methods.generateRefreshToken = function(){
     return jwt.sign({
         _id:this._id,
     },

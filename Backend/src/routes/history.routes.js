@@ -6,7 +6,7 @@ const userhistoryRoute = express.Router()
 
 userhistoryRoute.route("/getAllHistory").get(verifyJwt, getAllHistory)
 userhistoryRoute.route("/get-history-by-id/:historyId").get(verifyJwt, getHistoryById)
-userhistoryRoute.route("/delete-history").get(verifyJwt, deleteHistory)
+userhistoryRoute.route("/delete-history/:historyId").get(verifyJwt, deleteHistory)
 
 export default userhistoryRoute
 

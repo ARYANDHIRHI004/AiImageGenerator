@@ -11,7 +11,7 @@ export const verifyJwt = asyncHandler( async (req, _ , next) => {
     }
 
     const decodedToken = jwt.verify(token, ACCESS_TOKEN_SECRET)
-    req.user = decodedToken._id
+    req.user = decodedToken
     next()
 }
 )

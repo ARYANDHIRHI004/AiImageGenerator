@@ -4,6 +4,6 @@ import { verifyJwt } from "../middlewares/auth.middlewares.js"
 
 const generateRoute = express.Router()
 
-generateRoute.route("/generate-image").post(verifyJwt, generateImage)
+generateRoute.route("/generate-image").post( generateImage)
 
 export default generateRoute

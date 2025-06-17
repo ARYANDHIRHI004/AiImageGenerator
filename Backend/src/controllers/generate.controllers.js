@@ -8,14 +8,11 @@ export const generateImage = asyncHandler(async (req, res) => {
 
   try {
     const blob = await hf.textToImage({
+      model: "black-forest-labs/FLUX.1-dev",
       inputs: prompt,
-      model: "prithivMLmods/FLUX-REALISM",
-      n:3
-      
     });
 
     console.log(blob);
-    
     const arrayBuffer = await blob.arrayBuffer();
     const buffer = Buffer.from(arrayBuffer);
 
@@ -30,4 +27,4 @@ export const generateImage = asyncHandler(async (req, res) => {
   } catch (error) {
     console.error("Error generating image:", error);
   }
-})
+});
